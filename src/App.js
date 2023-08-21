@@ -14,7 +14,11 @@ function App() {
         <h4>ReactBlog</h4>
       </div>
 
-      <button>가나다순 정렬</button>
+      <button onClick={()=>{
+        let newCopy = [...글제목]
+        newCopy.sort()
+        글제목변경(newCopy)
+      }}>가나다순 정렬</button>
 
       <button onClick={()=>{
          let copy = [...글제목]
