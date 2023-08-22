@@ -7,6 +7,8 @@ function App() {
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '용봉 라멘 맛집', '리액트 독학'])
   let [따봉, 따봉변경] = useState([0,0,0])
   let [modal, setModal] = useState(false)
+  let [title, setTitle] = useState(0)
+  let [입력값, 입력값변경] = useState('')
 
   return (
     <div className="App">
@@ -51,12 +53,13 @@ function App() {
           return (
             <div className='list' key={i}>
               <h4 onClick={()=> { 
-                setModal(true)
-                if (modal == true) {
-                  setModal(false)
-                  }
+                setModal(true); setTitle(i)
+                // if (modal == true) {
+                //   setModal(false)
+                //   }
                 }}>{ 글제목[i] }
-                <span onClick={()=>{
+                <span onClick={(e)=>{
+                  e.stopPropagation()
                   let copy = [...따봉]
                   copy[i] = copy[i] + 1
                   따봉변경(copy)
@@ -69,8 +72,15 @@ function App() {
         })
       }
 
+      <input onChange={(e)=>{
+        입력값변경(e.target.value)
+        console.log(입력값)
+        }} />
+
       {
-        modal == true ? <Modal 글제목={글제목} 글제목변경={글제목변경}/> : null
+        modal == true 
+        ? <Modal title={title} setTitle={setTitle} 글제목={글제목} 글제목변경={글제목변경}/> 
+        : null
       }
 
       
@@ -78,10 +88,13 @@ function App() {
   );
 }
 
+// 글제목을 클릭하면 글제목의 인덱스가 title의 번호로 바뀐다(settitle로 바꿔줘야겠지?)
+// 그 다음에 모달창에 그걸 띄워주면 되는데?
+
 function Modal(props){
   return (
     <div className='modal'>
-        <h4>{}</h4>
+        <h4>{ props.글제목[props.title] }</h4>
         <p>날짜</p>
         <p>상세내용</p>
         <button>글수정</button>
