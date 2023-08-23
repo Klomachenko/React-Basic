@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
@@ -65,6 +64,13 @@ function App() {
                   따봉변경(copy)
                 }
                   }> 👍</span> {따봉[i]}
+                  <button onClick={(e)=> {
+                    e.stopPropagation()
+                    let copy = [...글제목]
+                    copy.splice(i, 1)
+                    글제목변경(copy)
+                  }}
+                  >삭제</button>
               </h4>
               <p>8월 21일 발행</p>
             </div>
@@ -74,8 +80,13 @@ function App() {
 
       <input onChange={(e)=>{
         입력값변경(e.target.value)
-        console.log(입력값)
         }} />
+      <button onClick={()=> {
+        // 클릭하면 글 추가
+        let copy = [...글제목]
+        copy.unshift(입력값)
+        글제목변경(copy)
+      }}>추가</button>
 
       {
         modal == true 
